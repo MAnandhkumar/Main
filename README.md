@@ -1,36 +1,56 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Naskart - Premium Affiliate Marketing Platform
 
-## Getting Started
+A production-ready, enterprise-grade affiliate marketing aggregator built with modern web technologies.
 
-First, run the development server:
+## Tech Stack
+- **Frontend Framework**: Next.js 15 (App Router)
+- **Styling**: Tailwind CSS, ShadCN UI, Framer Motion
+- **Database & Auth**: Supabase (PostgreSQL, Row Level Security)
+- **Deployment**: Vercel
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+## Core Features
+1. **Public Website**: Highly polished, glassmorphism UI for product grids and detail pages. SEO optimized with dynamic meta tags.
+2. **Affiliate Redirect Engine**: Tracks outgoing clicks and safely 302 redirects users to the affiliate partner.
+3. **Admin Dashboard**: Protect routes to manage inventory and monitor platform analytics via Supabase Auth.
+4. **Resilient**: Code handles missing Supabase configurations gracefully (renders mocked data for immediate previewing).
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Setup & Local Development
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### 1. Configure Supabase
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+1. Create a project at [Supabase](https://supabase.com).
+2. Go to the SQL Editor and execute the contents of `schema.sql` found in the root of the text.
+3. This creates all tables (`categories`, `products`, `affiliate_links`, `clicks`, `admins`) and their corresponding Row Level Security (RLS) policies.
 
-## Learn More
+### 2. Configure Environment Variables
 
-To learn more about Next.js, take a look at the following resources:
+1. Copy `.env.example` to `.env.local`
+   ```bash
+   cp .env.example .env.local
+   ```
+2. Fill in the values from your Supabase Dashboard (Settings -> API).
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+### 3. Install & Run
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+1. Install dependencies:
+   ```bash
+   npm install
+   ```
+2. Start the development server:
+   ```bash
+   npm run dev
+   ```
+3. Open [http://localhost:3000](http://localhost:3000)
 
-## Deploy on Vercel
+## Deployment on Vercel
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+1. Push your code to a GitHub repository.
+2. Log into [Vercel](https://vercel.com) and click "Add New Project".
+3. Import your GitHub repository.
+4. Expand **Environment Variables** and add:
+   - `NEXT_PUBLIC_SUPABASE_URL`
+   - `NEXT_PUBLIC_SUPABASE_ANON_KEY`
+5. Click **Deploy**. Vercel will automatically build the Next.js app and assign it a URL.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## Contact
+Maintainer: Admin @ Naskart

@@ -1,65 +1,57 @@
-import Image from "next/image";
+import { createClient } from '@/lib/supabase/server'
+import { HomeContent } from '@/components/HomeContent'
 
-export default function Home() {
-  return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
-        </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
-        </div>
-      </main>
-    </div>
-  );
+export default async function Home() {
+  const supabase = await createClient()
+  let featuredProducts: any[] = []
+  let banners: any[] = []
+
+  if (supabase && process.env.NEXT_PUBLIC_SUPABASE_URL && process.env.NEXT_PUBLIC_SUPABASE_URL !== 'your-supabase-project-url') {
+    const { data: products } = await supabase
+      .from('products')
+      .select('*, categories(name)')
+      .limit(6)
+      .order('created_at', { ascending: false })
+    featuredProducts = products || []
+
+    const { data: bannersData } = await supabase
+      .from('banners')
+      .select('*')
+      .eq('active', true)
+      .order('priority', { ascending: false })
+      .order('created_at', { ascending: false })
+    banners = bannersData || []
+  }
+
+  // Fallback mock data if DB is empty or unconfigured
+  if (featuredProducts.length === 0) {
+    featuredProducts = [
+      {
+        id: '1',
+        name: 'Premium Noise-Cancelling Headphones',
+        description: 'Experience pure sound with our top-rated noise-cancelling technology.',
+        image_url: 'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?q=80&w=800&auto=format&fit=crop',
+        slug: 'premium-headphones',
+        categories: { name: 'Electronics' },
+      },
+      {
+        id: '2',
+        name: 'Ergonomic Desk Chair',
+        description: 'Support your back with this highly adjustable mesh office chair.',
+        image_url: 'https://images.unsplash.com/photo-1592078615290-033ee584e267?q=80&w=800&auto=format&fit=crop',
+        slug: 'ergonomic-chair',
+        categories: { name: 'Furniture' },
+      },
+      {
+        id: '3',
+        name: 'Minimalist Smartwatch',
+        description: 'Track your fitness and stay connected with a sleek, minimalist design.',
+        image_url: 'https://images.unsplash.com/photo-1523275335684-37898b6baf30?q=80&w=800&auto=format&fit=crop',
+        slug: 'minimalist-smartwatch',
+        categories: { name: 'Accessories' },
+      },
+    ]
+  }
+
+  return <HomeContent featuredProducts={featuredProducts} banners={banners} />
 }
