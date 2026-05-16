@@ -1,13 +1,13 @@
-import type { NextConfig } from "next";
-import path from "path";
+import type { NextConfig } from 'next'
+import path from 'path'
 
 const nextConfig: NextConfig = {
   turbopack: {
-    root: ".",
+    root: '.',
     resolveAlias: {
-      'tailwindcss': path.resolve(__dirname, 'node_modules/tailwindcss'),
+      tailwindcss: path.resolve(__dirname, 'node_modules/tailwindcss'),
     },
   },
-};
+}
 
-export default nextConfig;
+export default nextConfig

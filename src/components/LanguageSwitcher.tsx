@@ -1,7 +1,6 @@
 'use client'
 
 import { useLanguage } from './Providers'
-import { Languages } from 'lucide-react'
 import { cn } from '@/lib/utils'
 
 export function LanguageSwitcher() {
@@ -12,30 +11,38 @@ export function LanguageSwitcher() {
   }
 
   return (
-    <button 
+    <button
       onClick={toggleLanguage}
-      className="flex items-center gap-0.5 p-0.5 rounded-full bg-slate-200 dark:bg-slate-800 relative w-16 h-8 group transition-all"
+      className="group relative flex h-8 w-16 items-center gap-0.5 rounded-full bg-slate-200 p-0.5 transition-all dark:bg-slate-800"
     >
       {/* Sliding Background */}
-      <div 
+      <div
         className={cn(
-          "absolute inset-y-0.5 rounded-full w-[30px] shadow-sm transition-all duration-300 ease-out",
-          language === 'en' ? "left-0.5 bg-white dark:bg-slate-700" : "left-[33px] bg-primary"
+          'absolute inset-y-0.5 w-[30px] rounded-full shadow-sm transition-all duration-300 ease-out',
+          language === 'en'
+            ? 'left-0.5 bg-white dark:bg-slate-700'
+            : 'bg-primary left-[33px]'
         )}
       />
-      
+
       {/* Options */}
-      <div className="relative flex w-full h-full items-center justify-between px-2 text-[10px] font-black tracking-widest leading-none z-10 select-none">
-        <span className={cn(
-          "transition-colors duration-300",
-          language === 'en' ? "text-slate-900 dark:text-white" : "text-muted-foreground"
-        )}>
+      <div className="relative z-10 flex h-full w-full items-center justify-between px-2 text-[10px] leading-none font-black tracking-widest select-none">
+        <span
+          className={cn(
+            'transition-colors duration-300',
+            language === 'en'
+              ? 'text-slate-900 dark:text-white'
+              : 'text-muted-foreground'
+          )}
+        >
           EN
         </span>
-        <span className={cn(
-          "transition-colors duration-300",
-          language === 'ta' ? "text-white" : "text-muted-foreground"
-        )}>
+        <span
+          className={cn(
+            'transition-colors duration-300',
+            language === 'ta' ? 'text-white' : 'text-muted-foreground'
+          )}
+        >
           TA
         </span>
       </div>

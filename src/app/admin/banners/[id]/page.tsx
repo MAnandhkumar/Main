@@ -3,19 +3,20 @@ import { BannerForm } from '@/components/admin/BannerForm'
 import { notFound } from 'next/navigation'
 
 interface EditBannerPageProps {
-  params: {
+  params: Promise<{
     id: string
-  }
+  }>
 }
 
 export default async function EditBannerPage({ params }: EditBannerPageProps) {
+  const { id } = await params
   const supabase = await createClient()
   if (!supabase) return <div>Database not configured</div>
 
   const { data: banner } = await supabase
     .from('banners')
     .select('*')
-    .eq('id', params.id)
+    .eq('id', id)
     .single()
 
   if (!banner) {
@@ -23,13 +24,17 @@ export default async function EditBannerPage({ params }: EditBannerPageProps) {
   }
 
   return (
-    <div className="p-6 space-y-8">
+    <div className="space-y-8 p-6">
       <div>
-        <h1 className="text-3xl font-black uppercase tracking-tighter">Edit Banner</h1>
-        <p className="text-muted-foreground uppercase tracking-widest text-xs font-bold mt-1">Update your promotional message and visuals</p>
+        <h1 className="text-3xl font-black tracking-tighter uppercase">
+          Edit Banner
+        </h1>
+        <p className="text-muted-foreground mt-1 text-xs font-bold tracking-widest uppercase">
+          Update your promotional message and visuals
+        </p>
       </div>
 
-      <div className="bg-card border border-border p-8 rounded-2xl shadow-sm">
+      <div className="bg-card border-border rounded-2xl border p-8 shadow-sm">
         <BannerForm initialData={banner} />
       </div>
     </div>

@@ -17,7 +17,7 @@ import {
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { AlertCircle, Loader2 } from 'lucide-react'
 
-import { SafeImage } from "@/components/SafeImage"
+import { SafeImage } from '@/components/SafeImage'
 
 interface Category {
   id: string
@@ -45,16 +45,21 @@ export function ProductForm({ categories }: ProductFormProps) {
     store_name: 'Amazon',
   })
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
     const { name, value } = e.target
     setFormData((prev) => ({ ...prev, [name]: value }))
-    
+
     // Auto-generate slug from name if slug is empty
     if (name === 'name' && !formData.slug) {
-      setFormData((prev) => ({ 
-        ...prev, 
+      setFormData((prev) => ({
+        ...prev,
         name: value,
-        slug: value.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '')
+        slug: value
+          .toLowerCase()
+          .replace(/[^a-z0-9]+/g, '-')
+          .replace(/(^-|-$)/g, ''),
       }))
     }
   }
@@ -83,22 +88,33 @@ export function ProductForm({ categories }: ProductFormProps) {
 
       router.push('/admin/products')
       router.refresh()
-    } catch (err: any) {
-      setError(err.message || 'Failed to create product')
+    } catch (err: unknown) {
+      const msg =
+        err instanceof Error
+          ? err.message
+          : typeof err === 'object' && err !== null && 'message' in err
+            ? String((err as { message: unknown }).message)
+            : 'Failed to create product'
+      setError(msg)
     } finally {
       setLoading(false)
     }
   }
 
   return (
-    <Card className="max-w-2xl mx-auto bg-card border-white/10">
+    <Card className="bg-card mx-auto max-w-2xl border-white/10">
       <CardHeader>
         <CardTitle>Product Details</CardTitle>
       </CardHeader>
       <CardContent>
-        <form onSubmit={handleSubmit} className="space-y-6">
+        <form
+          onSubmit={handleSubmit}
+          className="space-y-6"
+          role="form"
+          aria-label="Product Form"
+        >
           {error && (
-            <div className="flex items-center gap-2 p-3 rounded-lg bg-destructive/10 text-destructive text-sm">
+            <div className="bg-destructive/10 text-destructive flex items-center gap-2 rounded-lg p-3 text-sm">
               <AlertCircle className="h-4 w-4" />
               {error}
             </div>
@@ -126,35 +142,48 @@ export function ProductForm({ categories }: ProductFormProps) {
               value={formData.slug}
               onChange={handleChange}
             />
-            <p className="text-[10px] text-muted-foreground">Unique identifier used for your affiliate links.</p>
+            <p className="text-muted-foreground text-[10px]">
+              Unique identifier used for your affiliate links.
+            </p>
           </div>
 
           <div className="grid gap-2">
             <Label htmlFor="category_id">Category</Label>
-            <Select onValueChange={(val) => handleCategoryChange(val || '')} value={formData.category_id}>
+            <Select
+              onValueChange={(val) => handleCategoryChange(val || '')}
+              value={formData.category_id}
+            >
               <SelectTrigger>
                 <SelectValue placeholder="Select a category" />
               </SelectTrigger>
               <SelectContent>
-                {categories.filter(c => !c.parent_id).map((root) => (
-                  <div key={root.id}>
-                    <SelectItem value={root.id} className="font-bold">
-                      {root.name}
-                    </SelectItem>
-                    {categories.filter(c => c.parent_id === root.id).map(child => (
-                      <SelectItem key={child.id} value={child.id} className="pl-6 text-muted-foreground">
-                        — {child.name}
+                {categories
+                  .filter((c) => !c.parent_id)
+                  .map((root) => (
+                    <div key={root.id}>
+                      <SelectItem value={root.id} className="font-bold">
+                        {root.name}
                       </SelectItem>
-                    ))}
-                  </div>
-                ))}
+                      {categories
+                        .filter((c) => c.parent_id === root.id)
+                        .map((child) => (
+                          <SelectItem
+                            key={child.id}
+                            value={child.id}
+                            className="text-muted-foreground pl-6"
+                          >
+                            — {child.name}
+                          </SelectItem>
+                        ))}
+                    </div>
+                  ))}
               </SelectContent>
             </Select>
           </div>
 
           <div className="grid gap-2">
             <Label htmlFor="image_url">Image URL</Label>
-            <div className="flex gap-4 items-start">
+            <div className="flex items-start gap-4">
               <div className="flex-1">
                 <Input
                   id="image_url"
@@ -165,11 +194,11 @@ export function ProductForm({ categories }: ProductFormProps) {
                 />
               </div>
               {formData.image_url && (
-                <div className="w-20 h-20 rounded-lg overflow-hidden border border-white/10 shrink-0 bg-muted">
-                  <SafeImage 
-                    src={formData.image_url} 
-                    alt="Preview" 
-                    className="w-full h-full object-cover"
+                <div className="bg-muted h-20 w-20 shrink-0 overflow-hidden rounded-lg border border-white/10">
+                  <SafeImage
+                    src={formData.image_url}
+                    alt="Preview"
+                    className="h-full w-full object-cover"
                   />
                 </div>
               )}
@@ -182,35 +211,35 @@ export function ProductForm({ categories }: ProductFormProps) {
               id="description"
               name="description"
               placeholder="Tell us about this product..."
-              className="resize-none min-h-[100px]"
+              className="min-h-[100px] resize-none"
               value={formData.description}
               onChange={handleChange}
             />
           </div>
 
           <div className="grid grid-cols-2 gap-4 border-t border-white/5 pt-6">
-             <div className="grid gap-2">
-               <Label htmlFor="store_name">Store Name</Label>
-               <Input
-                 id="store_name"
-                 name="store_name"
-                 placeholder="e.g. Amazon, AliExpress"
-                 required
-                 value={formData.store_name}
-                 onChange={handleChange}
-               />
-             </div>
-             <div className="grid gap-2">
-               <Label htmlFor="affiliate_url">Affiliate Link (Mandatory)</Label>
-               <Input
-                 id="affiliate_url"
-                 name="affiliate_url"
-                 placeholder="https://..."
-                 required
-                 value={formData.affiliate_url}
-                 onChange={handleChange}
-               />
-             </div>
+            <div className="grid gap-2">
+              <Label htmlFor="store_name">Store Name</Label>
+              <Input
+                id="store_name"
+                name="store_name"
+                placeholder="e.g. Amazon, AliExpress"
+                required
+                value={formData.store_name}
+                onChange={handleChange}
+              />
+            </div>
+            <div className="grid gap-2">
+              <Label htmlFor="affiliate_url">Affiliate Link (Mandatory)</Label>
+              <Input
+                id="affiliate_url"
+                name="affiliate_url"
+                placeholder="https://..."
+                required
+                value={formData.affiliate_url}
+                onChange={handleChange}
+              />
+            </div>
           </div>
 
           <div className="flex justify-end gap-3 pt-4">

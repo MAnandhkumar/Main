@@ -3,12 +3,14 @@
 A production-ready, enterprise-grade affiliate marketing aggregator built with modern web technologies.
 
 ## Tech Stack
+
 - **Frontend Framework**: Next.js 15 (App Router)
 - **Styling**: Tailwind CSS, ShadCN UI, Framer Motion
 - **Database & Auth**: Supabase (PostgreSQL, Row Level Security)
 - **Deployment**: Vercel
 
 ## Core Features
+
 1. **Public Website**: Highly polished, glassmorphism UI for product grids and detail pages. SEO optimized with dynamic meta tags.
 2. **Affiliate Redirect Engine**: Tracks outgoing clicks and safely 302 redirects users to the affiliate partner.
 3. **Admin Dashboard**: Protect routes to manage inventory and monitor platform analytics via Supabase Auth.
@@ -53,4 +55,5 @@ A production-ready, enterprise-grade affiliate marketing aggregator built with m
 5. Click **Deploy**. Vercel will automatically build the Next.js app and assign it a URL.
 
 ## Contact
+
 Maintainer: Admin @ Naskart
