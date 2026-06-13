@@ -290,7 +290,7 @@ export function HomeContent({
                     className="h-full w-full object-cover opacity-60"
                     alt={banner.title}
                   />
-                  <div className="absolute inset-0 flex flex-col justify-center bg-gradient-to-r from-slate-950/80 via-slate-950/20 to-transparent px-4 md:px-20">
+                  <div className="absolute inset-0 flex flex-col justify-center bg-gradient-to-r from-slate-950/80 via-slate-950/20 to-transparent px-6 md:px-20">
                     <motion.div
                       initial={{ opacity: 0, x: -20 }}
                       animate={{ opacity: 1, x: 0 }}
@@ -310,7 +310,7 @@ export function HomeContent({
                         href={banner.link_url || '#'}
                         className={cn(
                           buttonVariants({ variant: 'brand', size: 'lg' }),
-                          'shadow-accent/20 transform rounded-full px-10 text-lg font-black shadow-2xl transition-all hover:scale-105 active:scale-95'
+                          'shadow-accent/20 shadow-premium transform rounded-full px-10 text-lg font-black transition-all hover:scale-105 active:scale-95'
                         )}
                       >
                         {banner.button_text || 'Shop Now'}{' '}
@@ -358,13 +358,13 @@ export function HomeContent({
       </section>
       {/* 2. Popular Categories */}
       <motion.section
-        className="border-border/50 mx-auto max-w-7xl border-t px-4 py-12"
+        className="border-border/50 mx-auto max-w-7xl border-t px-6 py-20 lg:px-12"
         initial={{ opacity: 0, y: 30 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
         transition={{ duration: 0.8, delay: 0.2 }}
       >
-        <div className="mx-auto max-w-7xl px-4">
+        <div className="mx-auto max-w-7xl px-6">
           <div className="mb-10 flex items-center justify-between">
             <h2 className="font-heading text-foreground text-3xl font-bold tracking-tight">
               Popular Categories
@@ -384,7 +384,7 @@ export function HomeContent({
                 href="#"
                 className="group flex min-w-[90px] shrink-0 flex-col items-center gap-3"
               >
-                <div className="dark:group-hover:bg-primary/20 group-hover:border-primary/50 relative flex h-16 w-16 items-center justify-center overflow-hidden rounded-2xl border border-transparent bg-slate-100 p-3 transition-all duration-500 group-hover:scale-110 group-hover:rotate-3 group-hover:bg-white group-hover:shadow-2xl dark:bg-slate-800/80">
+                <div className="dark:group-hover:bg-primary/20 group-hover:border-primary/50 group-hover:shadow-premium relative flex h-16 w-16 items-center justify-center overflow-hidden rounded-2xl border border-transparent bg-slate-100 p-3 transition-all duration-500 group-hover:scale-110 group-hover:rotate-3 group-hover:bg-white dark:bg-slate-800/80">
                   <div className="from-primary/0 to-primary/0 group-hover:from-primary/10 group-hover:to-accent/10 absolute inset-0 bg-linear-to-br transition-all duration-500" />
                   <SafeImage
                     src={cat.image}
@@ -403,7 +403,7 @@ export function HomeContent({
 
       {/* 1. Hero Section (Animated) */}
       <motion.section
-        className="mx-auto max-w-7xl px-4 py-8"
+        className="mx-auto max-w-7xl px-6 py-20 lg:px-12"
         initial={{ opacity: 0, scale: 0.98 }}
         animate={{ opacity: 1, scale: 1 }}
         transition={{ duration: 0.8, ease: 'easeOut' }}
@@ -512,7 +512,7 @@ export function HomeContent({
           <div className="bg-accent/20 absolute -right-[10%] -bottom-[20%] h-[50%] w-[50%] animate-pulse rounded-full blur-[120px]" />
         </div>
 
-        <div className="relative z-10 mx-auto max-w-7xl px-4">
+        <div className="relative z-10 mx-auto max-w-7xl px-6">
           <div className="mb-12 flex flex-col items-end justify-between gap-6 md:flex-row">
             <div className="flex flex-col gap-2">
               <div className="bg-accent/20 text-accent-foreground border-accent/20 flex w-fit items-center gap-2 rounded-full border px-3 py-1 text-[10px] font-black tracking-widest uppercase">
@@ -539,7 +539,7 @@ export function HomeContent({
             {dummyDeals.map((deal) => (
               <div
                 key={deal.id}
-                className="group bg-card shadow-ecommerce border-border/50 relative flex flex-col overflow-hidden rounded-2xl border transition-all duration-500 hover:-translate-y-2 hover:shadow-2xl"
+                className="group bg-card border-border/50 hover:shadow-premium relative flex flex-col overflow-hidden rounded-2xl border shadow-sm transition-all duration-500 hover:-translate-y-2"
               >
                 <div className="bg-muted group-hover:bg-primary/5 relative aspect-square overflow-hidden transition-colors">
                   <SafeImage
@@ -606,7 +606,7 @@ export function HomeContent({
       </motion.section>
 
       {/* 4. Tabbed Best Sellers Section */}
-      <section className="mx-auto max-w-7xl px-4 py-12">
+      <section className="mx-auto max-w-7xl px-6 py-20 lg:px-12">
         <div className="border-border mb-8 flex flex-col items-center justify-between gap-6 border-b pb-4 md:flex-row">
           <div>
             <h2 className="text-primary text-2xl font-black tracking-tight">
@@ -641,7 +641,7 @@ export function HomeContent({
               href={`/product/${product.slug}`}
               className="group flex flex-col gap-3"
             >
-              <div className="bg-muted shadow-ecommerce group-hover:shadow-ecommerce-md relative aspect-square overflow-hidden rounded-lg transition-all">
+              <div className="bg-muted group-hover:shadow-premium relative aspect-square overflow-hidden rounded-2xl shadow-sm transition-all duration-500">
                 <SafeImage
                   src={
                     product.image_url ||
@@ -671,8 +671,8 @@ export function HomeContent({
       </section>
 
       {/* 5. Brand Showcase */}
-      <section className="bg-primary/5 border-border/50 border-y py-12">
-        <div className="mx-auto max-w-7xl px-4">
+      <section className="bg-primary/5 border-border/50 border-y py-24">
+        <div className="mx-auto max-w-7xl px-6">
           <h2 className="font-heading text-primary mb-8 text-2xl font-black tracking-tighter uppercase">
             Official Victory Partners
           </h2>
@@ -681,7 +681,7 @@ export function HomeContent({
               <div
                 key={i}
                 className={cn(
-                  'group relative flex min-h-[300px] flex-col justify-end overflow-hidden rounded-2xl border border-white/10 p-8',
+                  'group hover:shadow-premium relative flex min-h-[350px] flex-col justify-end overflow-hidden rounded-3xl border border-white/10 p-10 transition-all duration-500 hover:-translate-y-2',
                   brand.color
                 )}
               >
@@ -689,6 +689,7 @@ export function HomeContent({
                   src={brand.image}
                   className="absolute inset-0 h-full w-full object-cover opacity-50 transition-transform duration-1000 group-hover:scale-110"
                   alt={brand.name}
+                  priority={i < 2}
                 />
                 <div className="absolute inset-0 bg-linear-to-t from-slate-950 via-slate-950/20 to-transparent" />
                 <div className="relative z-10">
@@ -715,7 +716,7 @@ export function HomeContent({
         viewport={{ once: true }}
         transition={{ duration: 1 }}
       >
-        <div className="mx-auto max-w-4xl px-4">
+        <div className="mx-auto max-w-4xl px-6">
           <h2 className="font-heading mb-4 text-3xl font-black tracking-tight tracking-tighter md:text-5xl">
             Deal Hunter? You&apos;re in luck.
           </h2>

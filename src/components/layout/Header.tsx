@@ -16,9 +16,9 @@ export function Header() {
       initial={{ y: -20, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
       transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
-      className="bg-victory-maroon shadow-primary/20 sticky top-0 z-50 w-full border-b border-white/10 shadow-2xl transition-all duration-300"
+      className="bg-primary/90 shadow-premium sticky top-0 z-50 w-full border-b border-white/10 backdrop-blur-2xl transition-all duration-300"
     >
-      <div className="mx-auto flex h-18 max-w-7xl items-center justify-between gap-6 px-4 md:h-24 md:gap-12">
+      <div className="mx-auto flex h-20 max-w-7xl items-center justify-between gap-6 px-6 md:h-24 md:gap-12 md:px-8 lg:px-12">
         {/* Left: Branding */}
         <Link href="/" className="group flex shrink-0 items-center gap-3">
           <div className="bg-victory-maroon shadow-primary/30 rounded-2xl p-2.5 text-white shadow-2xl transition-all duration-500 ease-out group-hover:scale-110 group-hover:rotate-6">
@@ -42,12 +42,12 @@ export function Header() {
           <input
             type="text"
             placeholder="Search for victory-grade deals..."
-            className="focus:border-accent/40 h-14 w-full rounded-2xl border-2 border-white/5 bg-white/10 pr-36 pl-14 text-base text-white shadow-inner transition-all duration-300 outline-none placeholder:text-white/40 hover:bg-white/15 focus:bg-white/20"
+            className="focus:border-accent/50 h-12 w-full rounded-full border border-white/10 bg-black/20 pr-32 pl-12 text-sm text-white shadow-inner transition-all duration-300 outline-none placeholder:text-white/40 hover:bg-black/30 focus:bg-black/40 md:h-14 md:pr-36 md:pl-14 md:text-base"
           />
           <div className="absolute top-1.5 right-1.5 flex items-center gap-2">
             <Button
               variant="brand"
-              className="shadow-primary/20 hover:shadow-accent/40 h-11 rounded-xl px-8 text-xs font-bold tracking-widest uppercase shadow-2xl transition-all"
+              className="shadow-primary/20 hover:shadow-accent/40 h-9 rounded-full px-6 text-[10px] font-bold tracking-widest uppercase shadow-xl transition-all md:h-11 md:px-8 md:text-xs"
             >
               Hunt
             </Button>
@@ -76,7 +76,7 @@ export function Header() {
           </div>
 
           {/* Luxury Switchers */}
-          <div className="flex items-center gap-2 rounded-2xl border border-white/5 bg-white/10 p-1.5 shadow-sm backdrop-blur-md">
+          <div className="flex items-center gap-2 rounded-full border border-white/10 bg-black/20 p-1.5 shadow-sm backdrop-blur-md">
             <LanguageSwitcher />
             <div className="mx-1 h-5 w-px bg-white/10" />
             <ThemeToggle />

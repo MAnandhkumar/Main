@@ -1,6 +1,7 @@
 import { createClient } from '@/lib/supabase/server'
-import { NextResponse } from 'next/server'
+import { NextResponse, after } from 'next/server'
 import { headers } from 'next/headers'
+import { notFound } from 'next/navigation'
 
 export async function GET(
   request: Request,
@@ -31,18 +32,20 @@ export async function GET(
     .single()
 
   if (linkError || !link) {
-    // Fallback redirect to homepage or error page if link not found
-    return NextResponse.redirect(new URL('/404', request.url))
+    // Fallback redirect to 404 page if link not found
+    return notFound()
   }
 
-  // 3. Log the click event synchronously
+  // 3. Log the click event asynchronously
   const userAgent = reqHeaders.get('user-agent') || 'Unknown'
   const referrer = reqHeaders.get('referer') || 'Direct'
 
-  await supabase.from('clicks').insert({
-    affiliate_link_id: link.id,
-    user_agent: userAgent,
-    referrer: referrer,
+  after(async () => {
+    await supabase.from('clicks').insert({
+      affiliate_link_id: link.id,
+      user_agent: userAgent,
+      referrer: referrer,
+    })
   })
 
   // 4. Redirect (302) to the external affiliate URL

@@ -1,6 +1,7 @@
 import { GET } from './route'
 import { createClient } from '@/lib/supabase/server'
 import { NextResponse } from 'next/server'
+import { notFound } from 'next/navigation'
 import { headers } from 'next/headers'
 import { vi, describe, it, expect, beforeEach } from 'vitest'
 
@@ -12,6 +13,11 @@ vi.mock('next/server', () => ({
   NextResponse: {
     redirect: vi.fn().mockImplementation((url) => ({ url })),
   },
+  after: vi.fn().mockImplementation((cb) => cb()), // Call synchronously in test
+}))
+
+vi.mock('next/navigation', () => ({
+  notFound: vi.fn(),
 }))
 
 vi.mock('next/headers', () => ({
@@ -72,8 +78,6 @@ describe('Affiliate Redirect Route', () => {
     })
 
     await GET(mockRequest as any, mockContext)
-    expect(NextResponse.redirect).toHaveBeenCalledWith(
-      expect.objectContaining({ href: expect.stringContaining('/404') })
-    )
+    expect(notFound).toHaveBeenCalled()
   })
 })

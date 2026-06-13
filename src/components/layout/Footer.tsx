@@ -14,7 +14,7 @@ import {
 
 export function Footer() {
   return (
-    <footer className="w-full border-t border-white/5 bg-slate-950 pt-20 pb-10 text-slate-400">
+    <footer className="bg-card text-muted-foreground border-border w-full border-t pt-24 pb-12">
       <div className="mx-auto max-w-7xl px-4">
         {/* Main Footer Grid */}
         <div className="mb-20 grid grid-cols-1 gap-12 md:grid-cols-2 lg:grid-cols-5">
@@ -24,7 +24,7 @@ export function Footer() {
               <div className="bg-primary rounded-lg p-2 text-white">
                 <ShoppingBag className="h-5 w-5" />
               </div>
-              <span className="text-xl font-black tracking-tighter text-white">
+              <span className="text-foreground text-xl font-black tracking-tighter">
                 NASKART
               </span>
             </Link>
@@ -36,25 +36,25 @@ export function Footer() {
             <div className="flex items-center gap-4">
               <Link
                 href="#"
-                className="hover:bg-primary flex h-10 w-10 items-center justify-center rounded-full border border-white/10 transition-all hover:text-white"
+                className="hover:bg-primary border-border flex h-10 w-10 items-center justify-center rounded-full border transition-all hover:text-white"
               >
                 <Facebook className="h-4 w-4" />
               </Link>
               <Link
                 href="#"
-                className="hover:bg-primary flex h-10 w-10 items-center justify-center rounded-full border border-white/10 transition-all hover:text-white"
+                className="hover:bg-primary border-border flex h-10 w-10 items-center justify-center rounded-full border transition-all hover:text-white"
               >
                 <Twitter className="h-4 w-4" />
               </Link>
               <Link
                 href="#"
-                className="hover:bg-primary flex h-10 w-10 items-center justify-center rounded-full border border-white/10 transition-all hover:text-white"
+                className="hover:bg-primary border-border flex h-10 w-10 items-center justify-center rounded-full border transition-all hover:text-white"
               >
                 <Instagram className="h-4 w-4" />
               </Link>
               <Link
                 href="#"
-                className="hover:bg-primary flex h-10 w-10 items-center justify-center rounded-full border border-white/10 transition-all hover:text-white"
+                className="hover:bg-primary border-border flex h-10 w-10 items-center justify-center rounded-full border transition-all hover:text-white"
               >
                 <Youtube className="h-4 w-4" />
               </Link>
@@ -63,7 +63,7 @@ export function Footer() {
 
           {/* Links Column 1 */}
           <div>
-            <h4 className="mb-8 text-[10px] font-black tracking-widest text-white uppercase">
+            <h4 className="text-foreground mb-8 text-[10px] font-black tracking-widest uppercase">
               Shopping Guide
             </h4>
             <ul className="space-y-4 text-sm">
@@ -97,7 +97,7 @@ export function Footer() {
 
           {/* Links Column 2 */}
           <div>
-            <h4 className="mb-8 text-[10px] font-black tracking-widest text-white uppercase">
+            <h4 className="text-foreground mb-8 text-[10px] font-black tracking-widest uppercase">
               Customer Care
             </h4>
             <ul className="space-y-4 text-sm">
@@ -131,20 +131,20 @@ export function Footer() {
 
           {/* Contact Info */}
           <div className="space-y-6">
-            <h4 className="mb-8 text-[10px] font-black tracking-widest text-white uppercase">
+            <h4 className="text-foreground mb-8 text-[10px] font-black tracking-widest uppercase">
               Get in Touch
             </h4>
             <div className="flex gap-4">
               <Phone className="text-primary h-5 w-5 shrink-0" />
               <div className="text-sm">
-                <p className="font-bold text-white">+91 98765 43210</p>
+                <p className="text-foreground font-bold">+91 98765 43210</p>
                 <p className="text-[10px] text-slate-500">Mon-Fri: 9am - 6pm</p>
               </div>
             </div>
             <div className="flex gap-4">
               <Mail className="text-primary h-5 w-5 shrink-0" />
               <div className="text-sm">
-                <p className="font-bold text-white">support@naskart.com</p>
+                <p className="text-foreground font-bold">support@naskart.com</p>
                 <p className="text-[10px] text-slate-500">
                   24/7 Online Support
                 </p>
@@ -154,19 +154,28 @@ export function Footer() {
         </div>
 
         {/* Bottom Bar */}
-        <div className="flex flex-col items-center justify-between gap-6 border-t border-white/5 pt-10 md:flex-row">
+        <div className="border-border flex flex-col items-center justify-between gap-6 border-t pt-10 md:flex-row">
           <p className="text-[10px] font-bold tracking-widest uppercase">
             &copy; {new Date().getFullYear()} NASKART ENTERPRISE. ALL RIGHTS
             RESERVED.
           </p>
           <div className="flex items-center gap-6 text-[10px] font-bold tracking-widest uppercase">
-            <Link href="#" className="transition-colors hover:text-white">
+            <Link
+              href="#"
+              className="text-foreground hover:text-primary transition-colors"
+            >
               Privacy Policy
             </Link>
-            <Link href="#" className="transition-colors hover:text-white">
+            <Link
+              href="#"
+              className="text-foreground hover:text-primary transition-colors"
+            >
               Terms of Service
             </Link>
-            <Link href="#" className="transition-colors hover:text-white">
+            <Link
+              href="#"
+              className="text-foreground hover:text-primary transition-colors"
+            >
               Cookies
             </Link>
           </div>
@@ -176,6 +185,7 @@ export function Footer() {
               width={40}
               height={16}
               className="h-4 w-auto"
+              style={{ width: 'auto' }}
               alt="Visa"
               unoptimized
             />
@@ -184,6 +194,7 @@ export function Footer() {
               width={40}
               height={24}
               className="h-6 w-auto"
+              style={{ width: 'auto' }}
               alt="Mastercard"
               unoptimized
             />
@@ -192,6 +203,7 @@ export function Footer() {
               width={60}
               height={16}
               className="h-4 w-auto"
+              style={{ width: 'auto' }}
               alt="Paypal"
               unoptimized
             />
